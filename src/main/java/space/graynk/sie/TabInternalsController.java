@@ -13,7 +13,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -25,6 +24,10 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -38,6 +41,7 @@ import space.graynk.sie.tools.Tool;
 import space.graynk.sie.tools.drawing.DrawingTool;
 
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 public class TabInternalsController {
     @FXML
@@ -183,6 +187,7 @@ public class TabInternalsController {
 
     @FXML
     private void onMouseReleased(MouseEvent event) {
+        System.out.println("bruh please");
         var tool = ((ToolButton)tools.getSelectedToggle()).getTool();
         tool.handleDragEnd(event);
         activeLayer.getValue().updatePreview();
@@ -203,14 +208,18 @@ public class TabInternalsController {
         tool.handleToolLeave(event, toolCanvas);
     }
 
-    public BufferedImage getImageForSaving() {
+    public Image getImage() {
         final SnapshotParameters spa = new SnapshotParameters();
         var scale = 1 / scrollPane.scaleValue;
         spa.setTransform(Transform.scale(scale, scale));
         spa.setFill(Color.TRANSPARENT);
         var image = new WritableImage((int) stackPane.getWidth(), (int) stackPane.getHeight());
         stackPane.snapshot(spa, image);
-        return SwingFXUtils.fromFXImage(image, null);
+        return image;
+    }
+
+    public BufferedImage getImageForSaving() {
+        return SwingFXUtils.fromFXImage(getImage(), null);
     }
 
     public void addLayer() {
@@ -237,5 +246,19 @@ public class TabInternalsController {
         var prevLayer = layers.getItems().get(selectedIndex+1);
         prevLayer.drawImage(image);
         this.deleteActiveLayer();
+    }
+
+    public void onKeyPressed(KeyEvent keyEvent) {
+        if (!keyEvent.isControlDown()) return;
+        if (keyEvent.getCode() == KeyCode.V && Clipboard.getSystemClipboard().hasImage()) {
+            var image = Clipboard.getSystemClipboard().getImage();
+            if (image == null) return;
+            activeLayer.getValue().drawImage(image);
+        } else if (keyEvent.getCode() == KeyCode.C) {
+            var map = new HashMap<DataFormat, Object>();
+            map.put(DataFormat.IMAGE, getImage());
+            var result = Clipboard.getSystemClipboard().setContent(map);
+            System.out.println(result);
+        }
     }
 }
