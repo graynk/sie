@@ -93,8 +93,7 @@ public class TabInternalsController {
         backgroundSelectedWrapper.bind(
                 selectionModel.selectedIndexProperty()
                         .isEqualTo(
-                                layersCountProperty.subtract(1
-                                )
+                                layersCountProperty.subtract(1)
                         )
         );
         backgroundSelected = backgroundSelectedWrapper.getReadOnlyProperty();
@@ -187,7 +186,6 @@ public class TabInternalsController {
 
     @FXML
     private void onMouseReleased(MouseEvent event) {
-        System.out.println("bruh please");
         var tool = ((ToolButton)tools.getSelectedToggle()).getTool();
         tool.handleDragEnd(event);
         activeLayer.getValue().updatePreview();
@@ -257,8 +255,8 @@ public class TabInternalsController {
         } else if (keyEvent.getCode() == KeyCode.C) {
             var map = new HashMap<DataFormat, Object>();
             map.put(DataFormat.IMAGE, getImage());
+            // TODO log failed attempts
             var result = Clipboard.getSystemClipboard().setContent(map);
-            System.out.println(result);
         }
     }
 }
