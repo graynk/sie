@@ -6,6 +6,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.StackPane;
 
@@ -17,6 +19,11 @@ public class ZoomableScrollPane extends ScrollPane {
 
     private Node wrapNode(Node node) {
         Node outerNode = new StackPane(node);
+
+        outerNode.addEventHandler(MouseEvent.ANY, event -> {
+            if(event.getButton() != MouseButton.MIDDLE) event.consume();
+        });
+
 
         outerNode.addEventFilter(ScrollEvent.ANY, e -> {
             if (!e.isControlDown()) {

@@ -215,13 +215,13 @@
     </TitledPane>
   </left>
   <center>
-    <ZoomableScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" pannable="true" onKeyPressed="#onKeyPressed">
+    <ZoomableScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" pannable="true" onKeyPressed="#onKeyPressed"  onMouseEntered="#onToolEntered" onMouseExited="#onToolExited">
       <StackPane>
         <Canvas fx:id="transparencyCanvas"/>
         <StackPane fx:id="stackPane">
           <Canvas fx:id="backgroundCanvas" height="300.0" width="300.0" onMousePressed="#onMousePressed" onMouseDragged="#onMouseDragged" onMouseReleased="#onMouseReleased"/>
         </StackPane>
-        <Canvas fx:id="toolCanvas" onMouseEntered="#onToolEntered" onMouseExited="#onToolExited" width="500" height="500" mouseTransparent="true"/>
+        <Canvas fx:id="toolCanvas" width="500" height="500" mouseTransparent="true"/>
       </StackPane>
     </ZoomableScrollPane>
   </center>
