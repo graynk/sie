@@ -73,6 +73,11 @@ public class TabInternalsController {
 
     @FXML
     private void initialize() {
+        tools.selectedToggleProperty().addListener((obsVal, oldVal, newVal) -> {
+            if (newVal == null)
+                oldVal.setSelected(true);
+        });
+
         brushSizeSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 55, 4));
         transparencyCanvas.widthProperty().bind(backgroundCanvas.widthProperty());
         transparencyCanvas.heightProperty().bind(backgroundCanvas.heightProperty());
@@ -167,6 +172,7 @@ public class TabInternalsController {
 
     @FXML
     private void onMousePressed(MouseEvent event) {
+        if (!event.isPrimaryButtonDown()) return;
         // TODO do it with property binding and invalidation listeners
         var tool = ((ToolButton)tools.getSelectedToggle()).getTool();
         if (tool instanceof DrawingTool) {
@@ -180,12 +186,14 @@ public class TabInternalsController {
 
     @FXML
     private void onMouseDragged(MouseEvent event) {
+        if (!event.isPrimaryButtonDown()) return;
         var tool = ((ToolButton)tools.getSelectedToggle()).getTool();
         tool.handleDrag(event);
     }
 
     @FXML
     private void onMouseReleased(MouseEvent event) {
+        if (!event.isPrimaryButtonDown()) return;
         var tool = ((ToolButton)tools.getSelectedToggle()).getTool();
         tool.handleDragEnd(event);
         activeLayer.getValue().updatePreview();
