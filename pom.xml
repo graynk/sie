@@ -19,32 +19,32 @@
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
-      <version>16</version>
+      <version>17.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-fxml</artifactId>
-      <version>16</version>
+      <version>17.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-swing</artifactId>
-      <version>16</version>
+      <version>17.0.2</version>
     </dependency>
     <dependency>
       <groupId>org.kordamp.ikonli</groupId>
       <artifactId>ikonli-javafx</artifactId>
-      <version>12.2.0</version>
+      <version>12.3.1</version>
     </dependency>
     <dependency>
       <groupId>org.kordamp.ikonli</groupId>
       <artifactId>ikonli-fluentui-pack</artifactId>
-      <version>12.2.0</version>
+      <version>12.3.1</version>
     </dependency>
     <dependency>
       <groupId>org.kordamp.ikonli</groupId>
       <artifactId>ikonli-coreui-pack</artifactId>
-      <version>12.2.0</version>
+      <version>12.3.1</version>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -67,8 +67,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
       <plugin>
@@ -116,7 +116,7 @@
         <version>1.0.5</version>
         <configuration>
           <mainClass>space.graynk.sie.SieApplication</mainClass>
-          <javaStaticSdkVersion>11.0.12</javaStaticSdkVersion>
+          <javaStaticSdkVersion>17.0.2</javaStaticSdkVersion>
           <javafxStaticSdkVersion>17-ea+11</javafxStaticSdkVersion>
         </configuration>
       </plugin>
